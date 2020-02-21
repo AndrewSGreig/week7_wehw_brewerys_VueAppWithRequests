@@ -4,7 +4,7 @@
 
   <ul>
     <p>hello from brewery list</p>
-    <brewery-item v-for="(brewery, index) in brewerys" :brewery="brewerys" :key='index'></brewery-item>
+    <brewery-item v-for="(brewery, index) in brewerys" :brewery="brewery" :key='index'></brewery-item>
   </ul>
 </div>
 </template>
