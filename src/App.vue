@@ -27,23 +27,27 @@ export default {
       fetch("https://api.openbrewerydb.org/breweries")
       .then(res => res.json())
       .then(brewerys => this.brewerys = brewerys )
-    }
-  },
+    },
+    getSimilarBrewerys: function(brewery_type){
+      fetch(`https://api.openbrewerydb.org/breweries?by_type=${brewery_type}`)
+        .then(typeRes => typeRes.json())
+        .then(typeBrewerys => this.typeBrewerys = typeBrewerys)
+
+
+        // (this.brewery_type = brewery_type);
+
+      }
+    },
+
+
+  // },
   mounted() {
     this.getBrewerys();
 
-
+    eventBus.$on("get-similar-brewerys", brewery_type => (
+      (this.brewery_type = brewery_type)
+      .then(this.getSimilarBrewerys(this.brewery_type))
+    ))
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

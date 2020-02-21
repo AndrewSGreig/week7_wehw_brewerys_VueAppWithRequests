@@ -3,7 +3,6 @@
 <!-- <div id="brewery-list"> -->
 
   <ul>
-    <p>hello from brewery list</p>
     <brewery-item v-for="(brewery, index) in brewerys" :brewery="brewery" :key='index'></brewery-item>
   </ul>
 </div>
