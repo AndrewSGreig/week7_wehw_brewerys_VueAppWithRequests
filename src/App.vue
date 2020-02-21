@@ -1,17 +1,38 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" if="brewery">
+    <h1> US Brewerys </h1>
+
+    <brewery-list :brewerys="brewerys"></brewery-list>
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import { eventBus } from './main.js'
+// import HelloWorld from './components/HelloWorld.vue'
+import BreweryList from './components/BreweryList.vue'
 export default {
-  name: 'App',
+  name: 'app',
   components: {
-    HelloWorld
+    // HelloWorld
+    "brewery-list": BreweryList
+  },
+  data() {
+    return {
+      brewerys: []
+    }
+  },
+  methods: {
+    getBrewerys: function() {
+      fetch("https://api.openbrewerydb.org/breweries")
+      .then(res => res.json())
+      .then(brewerys => this.brewerys = brewerys )
+    }
+  },
+  mounted() {
+    this.getBrewerys();
+
+
   }
 }
 </script>
