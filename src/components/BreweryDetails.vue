@@ -3,7 +3,7 @@
     <p> Brewery Type: {{ brewery.brewery_type }} </p>
     <p> Brewery Address: {{ brewery.street }}, {{ brewery.city }}, {{ brewery.state }}, {{ brewery.country }}</p>
     <p> Brewery Website: <a href> {{ brewery.website_url }}</a></p>
-    <input type='submit' value='Same Type Of Brewery' v-on:click="getSimilarBrewerys" />
+    <input type='submit' value='Same Type Of Brewery' v-on:click="getSimilarBreweries" />
   </div>
 
 </div>
@@ -19,9 +19,9 @@ export default {
   props: ['brewery'],
   methods: {
 
-    getSimilarBrewerys: function() {
-      console.log(`within brewery details, brewery type : ${this.brewery.brewery_type}`)
-      eventBus.$emit("get-similar-brewerys", this.brewery.brewery_type);
+    getSimilarBreweries: function() {
+      console.log(`within brewery details, brewery type : ${this.brewery.brewery_type}`);
+      eventBus.$emit("get-similar-breweries", this.brewery.brewery_type);
     }
   }
 }

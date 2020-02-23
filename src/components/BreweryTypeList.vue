@@ -3,7 +3,7 @@
 <!-- <div id="brewery-list"> -->
 
   <ul>
-    <brewery-item v-for="(brewery, index) in breweries" :brewery="brewery" :key='index'></brewery-item>
+    <brewery-item v-for="(brewery, index) in typeBreweries" :brewery="brewery" :key='index'></brewery-item>
   </ul>
 </div>
 </template>
@@ -12,7 +12,7 @@
 import { eventBus } from '../main.js'
 import BreweryItem from './BreweryItem.vue'
 export default {
-  name: 'brewery-list',
+  name: 'brewery-type-list',
   props: ['breweries'],
   components: {
     "brewery-item": BreweryItem

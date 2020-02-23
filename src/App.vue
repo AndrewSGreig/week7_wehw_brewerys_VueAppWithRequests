@@ -1,8 +1,8 @@
 <template>
   <div id="app" if="brewery">
-    <h1> US Brewerys </h1>
+    <h1> US Breweries </h1>
 
-    <brewery-list :brewerys="brewerys"></brewery-list>
+    <brewery-list :breweries="breweries"></brewery-list>
 
   </div>
 </template>
@@ -11,43 +11,51 @@
 import { eventBus } from './main.js'
 // import HelloWorld from './components/HelloWorld.vue'
 import BreweryList from './components/BreweryList.vue'
+import BreweryTypeList from './components/BreweryTypeList.vue'
 export default {
   name: 'app',
   components: {
     // HelloWorld
-    "brewery-list": BreweryList
+    "brewery-list": BreweryList,
+    "brewery-type-list": BreweryTypeList
   },
   data() {
     return {
-      brewerys: []
+      breweries: [],
+      typeBreweries:[]
     }
   },
   methods: {
-    getBrewerys: function() {
+    getBreweries: function() {
       fetch("https://api.openbrewerydb.org/breweries")
       .then(res => res.json())
-      .then(brewerys => this.brewerys = brewerys )
+      .then(breweries => this.breweries = breweries )
     },
-    getSimilarBrewerys: function(brewery_type){
+    getSimilarBreweries: function(brewery_type){
       fetch(`https://api.openbrewerydb.org/breweries?by_type=${brewery_type}`)
         .then(typeRes => typeRes.json())
-        .then(typeBrewerys => this.typeBrewerys = typeBrewerys)
+        .then(typeBreweries => this.typeBreweries = typeBreweries)
+        .then(console.log(this.typeBreweries))
 
 
         // (this.brewery_type = brewery_type);
 
       }
+
     },
 
 
   // },
   mounted() {
-    this.getBrewerys();
+    this.getBreweries();
 
-    eventBus.$on("get-similar-brewerys", brewery_type => (
-      (this.brewery_type = brewery_type)
-      .then(this.getSimilarBrewerys(this.brewery_type))
+    eventBus.$on("get-similar-breweries", brewery_type => (
+      // (this.brewery_type = brewery_type)
+      // .then
+      (this.getSimilarBreweries(this.brewery_type))
     ))
+    eventBus.$on("favourite-added", beer => this.markFavourite(beer));
+
   }
 }
 </script>
